@@ -1,0 +1,40 @@
+{
+    "name": "Reserva",
+    "fields": [
+        {
+            "fieldName": "codigo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fechaHoraInicio",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "fechaHoraFin",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "estadoReserva",
+            "fieldType": "EstadoReserva",
+            "fieldValues": "DISPONIBLE,RESTRINGIDO,OCUPADO"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "vehiculo",
+            "otherEntityRelationshipName": "reserva",
+            "relationshipName": "vehiculo",
+            "otherEntityField": "placa"
+        }
+    ],
+    "changelogDate": "20190815035302",
+    "entityTableName": "reserva",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

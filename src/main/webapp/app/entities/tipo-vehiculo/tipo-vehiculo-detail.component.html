@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tipoVehiculo">
+            <h2><span jhiTranslate="vehiclesApp.tipoVehiculo.detail.title">Tipo Vehiculo</span> {{tipoVehiculo.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="vehiclesApp.tipoVehiculo.codigo">Codigo</span></dt>
+                <dd>
+                    <span>{{tipoVehiculo.codigo}}</span>
+                </dd>
+                <dt><span jhiTranslate="vehiclesApp.tipoVehiculo.tipo">Tipo</span></dt>
+                <dd>
+                    <span>{{tipoVehiculo.tipo}}</span>
+                </dd>
+                <dt><span jhiTranslate="vehiclesApp.tipoVehiculo.estado">Estado</span></dt>
+                <dd>
+                    <span>{{tipoVehiculo.estado}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tipo-vehiculo', tipoVehiculo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

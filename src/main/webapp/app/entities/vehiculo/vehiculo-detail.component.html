@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="vehiculo">
+            <h2><span jhiTranslate="vehiclesApp.vehiculo.detail.title">Vehiculo</span> {{vehiculo.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="vehiclesApp.vehiculo.placa">Placa</span></dt>
+                <dd>
+                    <span>{{vehiculo.placa}}</span>
+                </dd>
+                <dt><span jhiTranslate="vehiclesApp.vehiculo.color">Color</span></dt>
+                <dd>
+                    <span>{{vehiculo.color}}</span>
+                </dd>
+                <dt><span jhiTranslate="vehiclesApp.vehiculo.estado">Estado</span></dt>
+                <dd>
+                    <span>{{vehiculo.estado}}</span>
+                </dd>
+                <dt><span jhiTranslate="vehiclesApp.vehiculo.marca">Marca</span></dt>
+                <dd>
+                    <div *ngIf="vehiculo.marca">
+                        <a [routerLink]="['/marca', vehiculo.marca?.id, 'view']">{{vehiculo.marca?.marca}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="vehiclesApp.vehiculo.modelo">Modelo</span></dt>
+                <dd>
+                    <div *ngIf="vehiculo.modelo">
+                        <a [routerLink]="['/modelo', vehiculo.modelo?.id, 'view']">{{vehiculo.modelo?.modelo}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="vehiclesApp.vehiculo.tipo">Tipo</span></dt>
+                <dd>
+                    <div *ngIf="vehiculo.tipo">
+                        <a [routerLink]="['/tipo-vehiculo', vehiculo.tipo?.id, 'view']">{{vehiculo.tipo?.tipo}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="vehiclesApp.vehiculo.duenho">Duenho</span></dt>
+                <dd>
+                    <div *ngIf="vehiculo.duenho">
+                        <a [routerLink]="['/conductor', vehiculo.duenho?.id, 'view']">{{vehiculo.duenho?.nombre}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/vehiculo', vehiculo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

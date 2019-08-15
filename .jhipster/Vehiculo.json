@@ -1,0 +1,64 @@
+{
+    "name": "Vehiculo",
+    "fields": [
+        {
+            "fieldName": "placa",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 7
+        },
+        {
+            "fieldName": "color",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "marca",
+            "otherEntityRelationshipName": "vehiculo",
+            "relationshipName": "marca",
+            "otherEntityField": "marca",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "modelo",
+            "otherEntityRelationshipName": "vehiculo",
+            "relationshipName": "modelo",
+            "otherEntityField": "modelo",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "tipoVehiculo",
+            "otherEntityRelationshipName": "vehiculo",
+            "relationshipName": "tipo",
+            "otherEntityField": "tipo"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "conductor",
+            "otherEntityRelationshipName": "vehiculo",
+            "relationshipValidateRules": "required",
+            "relationshipName": "duenho",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "changelogDate": "20190815035305",
+    "entityTableName": "vehiculo",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

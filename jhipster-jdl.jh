@@ -1,0 +1,62 @@
+
+enum EstadoReserva {
+    DISPONIBLE, RESTRINGIDO, OCUPADO
+}
+
+entity Reserva{
+	codigo String,
+    fechaHoraInicio ZonedDateTime,
+    fechaHoraFin ZonedDateTime,
+    estadoReserva EstadoReserva
+}
+
+entity Marca{
+	codigo String required maxlength(5),
+    marca String required maxlength(200),
+    estado Boolean
+}
+
+entity Modelo{
+	codigo String required maxlength(5),
+    modelo String required maxlength(200),
+    estado Boolean
+}
+
+entity Vehiculo {
+	placa String required maxlength(7),
+    color  Integer,
+    estado Boolean
+}
+
+entity TipoVehiculo{
+	 codigo String required maxlength(5),
+     tipo String required maxlength(200),
+     estado Boolean
+}
+
+entity Conductor{
+     dni String required maxlength(8),
+     nombre String,
+     fechaNacimiento  LocalDate,
+     email String,
+     celular String     
+}
+
+relationship OneToOne {
+	Vehiculo{marca(marca)} to Marca,
+	Vehiculo{modelo(modelo)} to Modelo
+}
+
+relationship ManyToOne {
+	Reserva{vehiculo(placa)} to Vehiculo,
+	Vehiculo{tipo(tipo)} to TipoVehiculo
+}
+
+relationship OneToMany{
+Conductor{vehiculo} to Vehiculo{duenho(nombre) required}
+}
+
+paginate Reserva, Vehiculo, Conductor with pagination
+paginate Vehiculo with infinite-scroll
+
+service all with serviceImpl except Condutor

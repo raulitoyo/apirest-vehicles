@@ -1,0 +1,85 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="vehiclesApp.vehiculo.home.title">Vehiculos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-vehiculo" [routerLink]="['/vehiculo/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="vehiclesApp.vehiculo.home.createLabel">
+            Create a new Vehiculo
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="vehiculos?.length === 0">
+        <span jhiTranslate="vehiclesApp.vehiculo.home.notFound">No vehiculos found</span>
+    </div>
+    <div class="table-responsive" *ngIf="vehiculos?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="placa"><span jhiTranslate="vehiclesApp.vehiculo.placa">Placa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="color"><span jhiTranslate="vehiclesApp.vehiculo.color">Color</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estado"><span jhiTranslate="vehiclesApp.vehiculo.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="marca.marca"><span jhiTranslate="vehiclesApp.vehiculo.marca">Marca</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modelo.modelo"><span jhiTranslate="vehiclesApp.vehiculo.modelo">Modelo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipo.tipo"><span jhiTranslate="vehiclesApp.vehiculo.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="duenho.nombre"><span jhiTranslate="vehiclesApp.vehiculo.duenho">Duenho</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let vehiculo of vehiculos ;trackBy: trackId">
+                <td><a [routerLink]="['/vehiculo', vehiculo.id, 'view' ]">{{vehiculo.id}}</a></td>
+                <td>{{vehiculo.placa}}</td>
+                <td>{{vehiculo.color}}</td>
+                <td>{{vehiculo.estado}}</td>
+                <td>
+                    <div *ngIf="vehiculo.marca">
+                        <a [routerLink]="['/marca', vehiculo.marca?.id, 'view' ]" >{{vehiculo.marca?.marca}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="vehiculo.modelo">
+                        <a [routerLink]="['/modelo', vehiculo.modelo?.id, 'view' ]" >{{vehiculo.modelo?.modelo}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="vehiculo.tipo">
+                        <a [routerLink]="['/tipo-vehiculo', vehiculo.tipo?.id, 'view' ]" >{{vehiculo.tipo?.tipo}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="vehiculo.duenho">
+                        <a [routerLink]="['/conductor', vehiculo.duenho?.id, 'view' ]" >{{vehiculo.duenho?.nombre}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/vehiculo', vehiculo.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/vehiculo', vehiculo.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/vehiculo', { outlets: { popup: vehiculo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

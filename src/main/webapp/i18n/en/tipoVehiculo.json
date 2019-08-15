@@ -1,0 +1,24 @@
+{
+  "vehiclesApp": {
+    "tipoVehiculo": {
+      "home": {
+        "title": "Tipo Vehiculos",
+        "createLabel": "Create a new Tipo Vehiculo",
+        "createOrEditLabel": "Create or edit a Tipo Vehiculo",
+        "notFound": "No Tipo Vehiculos found"
+      },
+      "created": "A new Tipo Vehiculo is created with identifier {{ param }}",
+      "updated": "A Tipo Vehiculo is updated with identifier {{ param }}",
+      "deleted": "A Tipo Vehiculo is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Tipo Vehiculo {{ id }}?"
+      },
+      "detail": {
+        "title": "Tipo Vehiculo"
+      },
+      "codigo": "Codigo",
+      "tipo": "Tipo",
+      "estado": "Estado"
+    }
+  }
+}

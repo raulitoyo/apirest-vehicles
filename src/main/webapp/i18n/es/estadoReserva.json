@@ -1,0 +1,10 @@
+{
+  "vehiclesApp": {
+    "EstadoReserva": {
+      "null": "",
+      "DISPONIBLE": "DISPONIBLE",
+      "RESTRINGIDO": "RESTRINGIDO",
+      "OCUPADO": "OCUPADO"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "vehiclesApp": {
+    "conductor": {
+      "home": {
+        "title": "Conductors",
+        "createLabel": "Crear nuevo Conductor",
+        "createOrEditLabel": "Crear o editar Conductor",
+        "notFound": "No Conductors found"
+      },
+      "created": "Un nuevo Conductor ha sido creado con el identificador {{ param }}",
+      "updated": "Un Conductor ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Conductor ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Conductor {{ id }}?"
+      },
+      "detail": {
+        "title": "Conductor"
+      },
+      "dni": "Dni",
+      "nombre": "Nombre",
+      "fechaNacimiento": "Fecha Nacimiento",
+      "email": "Email",
+      "celular": "Celular",
+      "vehiculo": "Vehiculo"
+    }
+  }
+}
