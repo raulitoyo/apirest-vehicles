@@ -72,12 +72,13 @@ public class ReservaResource {
      * or with status {@code 500 (Internal Server Error)} if the reserva couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/reservas")
-    public ResponseEntity<Reserva> updateReserva(@RequestBody Reserva reserva) throws URISyntaxException {
+    @PutMapping("/reservas/{id}")
+    public ResponseEntity<Reserva> updateReserva(@PathVariable Long id, @RequestBody Reserva reserva) throws URISyntaxException {
         log.debug("REST request to update Reserva : {}", reserva);
-        if (reserva.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        reserva.setId(id);
         Reserva result = reservaService.save(reserva);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reserva.getId().toString()))

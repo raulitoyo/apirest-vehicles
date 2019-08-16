@@ -71,7 +71,7 @@ export class ReservaUpdateComponent implements OnInit {
     this.isSaving = true;
     const reserva = this.createFromForm();
     if (reserva.id !== undefined) {
-      this.subscribeToSaveResponse(this.reservaService.update(reserva));
+      this.subscribeToSaveResponse(this.reservaService.update(reserva.id, reserva));
     } else {
       this.subscribeToSaveResponse(this.reservaService.create(reserva));
     }

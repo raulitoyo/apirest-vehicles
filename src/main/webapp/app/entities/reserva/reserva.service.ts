@@ -25,10 +25,10 @@ export class ReservaService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  update(reserva: IReserva): Observable<EntityResponseType> {
+  update(id: number, reserva: IReserva): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(reserva);
     return this.http
-      .put<IReserva>(this.resourceUrl, copy, { observe: 'response' })
+      .put<IReserva>(`${this.resourceUrl}/${id}`, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
