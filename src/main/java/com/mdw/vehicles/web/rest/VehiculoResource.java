@@ -127,4 +127,26 @@ public class VehiculoResource {
         vehiculoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * {@code PUT  /vehiculos} : Updates an existing vehiculo.
+     *
+     * @param vehiculo the vehiculo to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated vehiculo,
+     * or with status {@code 400 (Bad Request)} if the vehiculo is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the vehiculo couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping("/vehiculos/{id}")
+    public ResponseEntity<Vehiculo> updateVehiculoPartial(@PathVariable Long id, @Valid @RequestBody Vehiculo vehiculo) throws URISyntaxException {
+        log.debug("REST request to update Vehiculo : {}", vehiculo);
+        if (id == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        vehiculo.setId(id);
+        Vehiculo result = vehiculoService.save(vehiculo);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, vehiculo.getId().toString()))
+            .body(result);
+    }
 }

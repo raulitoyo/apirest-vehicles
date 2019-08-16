@@ -74,12 +74,13 @@ public class ConductorResource {
      * or with status {@code 500 (Internal Server Error)} if the conductor couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/conductors")
-    public ResponseEntity<Conductor> updateConductor(@Valid @RequestBody Conductor conductor) throws URISyntaxException {
+    @PutMapping("/conductors/{id}")
+    public ResponseEntity<Conductor> updateConductor(@PathVariable Long id, @Valid @RequestBody Conductor conductor) throws URISyntaxException {
         log.debug("REST request to update Conductor : {}", conductor);
-        if (conductor.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        conductor.setId(id);
         Conductor result = conductorService.save(conductor);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, conductor.getId().toString()))
@@ -126,5 +127,27 @@ public class ConductorResource {
         log.debug("REST request to delete Conductor : {}", id);
         conductorService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * {@code PUT  /conductors} : Updates an existing conductor.
+     *
+     * @param conductor the conductor to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated conductor,
+     * or with status {@code 400 (Bad Request)} if the conductor is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the conductor couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping("/conductors/{id}")
+    public ResponseEntity<Conductor> updateConductorPartial(@PathVariable Long id, @Valid @RequestBody Conductor conductor) throws URISyntaxException {
+        log.debug("REST request to update Conductor : {}", conductor);
+        if (id == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        conductor.setId(id);
+        Conductor result = conductorService.save(conductor);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, conductor.getId().toString()))
+            .body(result);
     }
 }

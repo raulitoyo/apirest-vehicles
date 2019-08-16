@@ -77,4 +77,34 @@ public class ConductorServiceImpl implements ConductorService {
         log.debug("Request to delete Conductor : {}", id);
         conductorRepository.deleteById(id);
     }
+
+    /**
+     * Save a partial conductor.
+     *
+     * @param conductor the entity to save.
+     * @return the persisted entity.
+     */
+    @Override
+    public Conductor savePartial(Conductor conductorPartial) {
+        log.debug("Request to save Conductor : {}", conductorPartial);
+
+        Optional<Conductor> conductor = conductorRepository.findById(conductorPartial.getId());
+        if (conductorPartial.getDni() == null) {
+            conductorPartial.setDni(conductor.get().getDni());
+        }
+        if (conductorPartial.getNombre() == null) {
+            conductorPartial.setNombre(conductor.get().getNombre());
+        }
+        if (conductorPartial.getFechaNacimiento() == null) {
+            conductorPartial.setFechaNacimiento(conductor.get().getFechaNacimiento());
+        }
+        if (conductorPartial.getEmail() == null) {
+            conductorPartial.setEmail(conductor.get().getEmail());
+        }
+        if (conductorPartial.getCelular() == null) {
+            conductorPartial.setCelular(conductor.get().getCelular());
+        }
+
+        return conductorRepository.save(conductorPartial);
+    }
 }

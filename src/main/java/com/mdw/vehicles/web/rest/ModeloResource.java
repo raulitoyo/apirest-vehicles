@@ -117,4 +117,27 @@ public class ModeloResource {
         modeloService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * {@code PUT  /modelos} : Updates an existing modelo.
+     *
+     * @param modelo the modelo to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated modelo,
+     * or with status {@code 400 (Bad Request)} if the modelo is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the modelo couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping("/modelos/{id}")
+    public ResponseEntity<Modelo> updateModeloPartial(@PathVariable Long id, @Valid @RequestBody Modelo modelo) throws URISyntaxException {
+        log.debug("REST request to update Modelo : {}", modelo);
+        if (id == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        modelo.setId(id);
+        Modelo result = modeloService.save(modelo);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, modelo.getId().toString()))
+            .body(result);
+    }
+
 }

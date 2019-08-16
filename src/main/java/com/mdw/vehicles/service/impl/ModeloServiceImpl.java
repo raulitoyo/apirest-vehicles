@@ -75,4 +75,26 @@ public class ModeloServiceImpl implements ModeloService {
         log.debug("Request to delete Modelo : {}", id);
         modeloRepository.deleteById(id);
     }
+
+    /**
+     * Save a patial modelo.
+     *
+     * @param modelo the entity to save.
+     * @return the persisted entity.
+     */
+    @Override
+    public Modelo savePartial(Modelo modeloPartial) {
+        log.debug("Request to save Modelo : {}", modeloPartial);
+        Optional<Modelo> modelo = modeloRepository.findById(modeloPartial.getId());
+        if (modeloPartial.getCodigo() == null) {
+            modeloPartial.setCodigo(modelo.get().getCodigo());
+        }
+        if (modeloPartial.getModelo() == null) {
+            modeloPartial.setModelo(modelo.get().getModelo());
+        }
+        if (modeloPartial.isEstado() == null) {
+            modeloPartial.setEstado(modelo.get().isEstado());
+        }
+        return modeloRepository.save(modeloPartial);
+    }
 }

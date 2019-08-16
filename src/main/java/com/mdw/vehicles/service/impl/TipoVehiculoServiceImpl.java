@@ -75,4 +75,29 @@ public class TipoVehiculoServiceImpl implements TipoVehiculoService {
         log.debug("Request to delete TipoVehiculo : {}", id);
         tipoVehiculoRepository.deleteById(id);
     }
+
+    /**
+     * Save a partial tipoVehiculo.
+     *
+     * @param tipoVehiculo the entity to save.
+     * @return the persisted entity.
+     */
+    @Override
+    public TipoVehiculo savePartial(TipoVehiculo tipoVehiculoPartial) {
+        log.debug("Request to save TipoVehiculo : {}", tipoVehiculoPartial);
+
+        Optional<TipoVehiculo> tipoVehiculo = tipoVehiculoRepository.findById(tipoVehiculoPartial.getId());
+        if (tipoVehiculoPartial.getCodigo() == null) {
+            tipoVehiculoPartial.setCodigo(tipoVehiculo.get().getCodigo());
+        }
+        if (tipoVehiculoPartial.getTipo() == null) {
+            tipoVehiculoPartial.setTipo(tipoVehiculo.get().getTipo());
+        }
+        if (tipoVehiculoPartial.isEstado() == null) {
+            tipoVehiculoPartial.setEstado(tipoVehiculo.get().isEstado());
+        }
+
+        return tipoVehiculoRepository.save(tipoVehiculoPartial);
+    }
+
 }

@@ -117,4 +117,27 @@ public class MarcaResource {
         marcaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * {@code PATCH  /marcas/:id} : Updates an existing marca.
+     *
+     * @param marca the marca to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated marca,
+     * or with status {@code 400 (Bad Request)} if the marca is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the marca couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping("/marcas/{id}")
+    public ResponseEntity<Marca> updateMarcaPartial(@PathVariable Long id, @Valid @RequestBody Marca marca) throws URISyntaxException {
+        log.debug("REST request to update Marca : {}", marca);
+        if (id == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        marca.setId(id);
+        Marca result = marcaService.save(marca);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, marca.getId().toString()))
+            .body(result);
+    }
+
 }

@@ -77,4 +77,40 @@ public class VehiculoServiceImpl implements VehiculoService {
         log.debug("Request to delete Vehiculo : {}", id);
         vehiculoRepository.deleteById(id);
     }
+
+    /**
+     * Save a vehiculo.
+     *
+     * @param vehiculo the entity to save.
+     * @return the persisted entity.
+     */
+    @Override
+    public Vehiculo savePartial(Vehiculo vehiculoPartial) {
+        log.debug("Request to save Vehiculo : {}", vehiculoPartial);
+
+        Optional<Vehiculo> vehiculo = vehiculoRepository.findById(vehiculoPartial.getId());
+        if (vehiculoPartial.getPlaca() == null) {
+            vehiculoPartial.setPlaca(vehiculo.get().getPlaca());
+        }
+        if (vehiculoPartial.getColor() == null) {
+            vehiculoPartial.setColor(vehiculo.get().getColor());
+        }
+        if (vehiculoPartial.isEstado() == null) {
+            vehiculoPartial.setEstado(vehiculo.get().isEstado());
+        }
+        if (vehiculoPartial.getMarca() == null) {
+            vehiculoPartial.setMarca(vehiculo.get().getMarca());
+        }
+        if (vehiculoPartial.getModelo() == null) {
+            vehiculoPartial.setModelo(vehiculo.get().getModelo());
+        }
+        if (vehiculoPartial.getTipo() == null) {
+            vehiculoPartial.setTipo(vehiculo.get().getTipo());
+        }
+        if (vehiculoPartial.getDuenho() == null) {
+            vehiculoPartial.setDuenho(vehiculo.get().getDuenho());
+        }
+
+        return vehiculoRepository.save(vehiculoPartial);
+    }
 }

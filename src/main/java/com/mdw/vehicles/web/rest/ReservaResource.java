@@ -126,4 +126,27 @@ public class ReservaResource {
         reservaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * {@code PUT  /reservas} : Updates an existing reserva.
+     *
+     * @param reserva the reserva to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated reserva,
+     * or with status {@code 400 (Bad Request)} if the reserva is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the reserva couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping("/reservas/{id}")
+    public ResponseEntity<Reserva> updateReservaPartial(@PathVariable Long id, @RequestBody Reserva reserva) throws URISyntaxException {
+        log.debug("REST request to update Reserva : {}", reserva);
+        if (id == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        reserva.setId(id);
+        Reserva result = reservaService.save(reserva);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reserva.getId().toString()))
+            .body(result);
+    }
+
 }

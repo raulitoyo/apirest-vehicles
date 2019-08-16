@@ -75,4 +75,29 @@ public class MarcaServiceImpl implements MarcaService {
         log.debug("Request to delete Marca : {}", id);
         marcaRepository.deleteById(id);
     }
+
+    /**
+     * Save a partial marca.
+     *
+     * @param marca the entity to save
+     * @return the persisted entity
+     */
+
+     @Override
+     public Marca savePartial(Marca marcaPartial) {
+         log.debug("Request to save Marca : {}", marcaPartial);
+
+         Optional<Marca> marca = marcaRepository.findById(marcaPartial.getId());
+         if (marcaPartial.getCodigo() == null) {
+             marcaPartial.setCodigo(marca.get().getCodigo());
+         }
+         if (marcaPartial.getMarca() == null) {
+             marcaPartial.setMarca(marca.get().getMarca());
+         }
+         if (marcaPartial.isEstado() == null) {
+             marcaPartial.setEstado(marca.get().isEstado());
+         }
+
+         return marcaRepository.save(marcaPartial);
+     }
 }

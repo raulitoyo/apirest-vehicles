@@ -77,4 +77,34 @@ public class ReservaServiceImpl implements ReservaService {
         log.debug("Request to delete Reserva : {}", id);
         reservaRepository.deleteById(id);
     }
+
+    /**
+     * Save a reserva.
+     *
+     * @param reserva the entity to save.
+     * @return the persisted entity.
+     */
+    @Override
+    public Reserva savePartial(Reserva reservaPartial) {
+        log.debug("Request to save Reserva : {}", reservaPartial);
+
+        Optional<Reserva> reserva = reservaRepository.findById(reservaPartial.getId());
+        if (reservaPartial.getCodigo() == null) {
+            reservaPartial.setCodigo(reserva.get().getCodigo());
+        }
+        if (reservaPartial.getFechaHoraInicio() == null) {
+            reservaPartial.setFechaHoraInicio(reserva.get().getFechaHoraInicio());
+        }
+        if (reservaPartial.getFechaHoraFin() == null) {
+            reservaPartial.setFechaHoraFin(reserva.get().getFechaHoraFin());
+        }
+        if (reservaPartial.getEstadoReserva() == null) {
+            reservaPartial.setEstadoReserva(reserva.get().getEstadoReserva());
+        }
+        if (reservaPartial.getVehiculo() == null) {
+            reservaPartial.setVehiculo(reserva.get().getVehiculo());
+        }
+
+        return reservaRepository.save(reservaPartial);
+    }
 }
