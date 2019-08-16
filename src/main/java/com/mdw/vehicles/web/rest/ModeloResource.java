@@ -67,12 +67,13 @@ public class ModeloResource {
      * or with status {@code 500 (Internal Server Error)} if the modelo couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/modelos")
-    public ResponseEntity<Modelo> updateModelo(@Valid @RequestBody Modelo modelo) throws URISyntaxException {
+    @PutMapping("/modelos/{id}")
+    public ResponseEntity<Modelo> updateModelo(@PathVariable Long id, @Valid @RequestBody Modelo modelo) throws URISyntaxException {
         log.debug("REST request to update Modelo : {}", modelo);
-        if (modelo.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        modelo.setId(id);
         Modelo result = modeloService.save(modelo);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, modelo.getId().toString()))

@@ -19,8 +19,8 @@ export class ModeloService {
     return this.http.post<IModelo>(this.resourceUrl, modelo, { observe: 'response' });
   }
 
-  update(modelo: IModelo): Observable<EntityResponseType> {
-    return this.http.put<IModelo>(this.resourceUrl, modelo, { observe: 'response' });
+  update(id: number, modelo: IModelo): Observable<EntityResponseType> {
+    return this.http.put<IModelo>(`${this.resourceUrl}/${id}`, modelo, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
