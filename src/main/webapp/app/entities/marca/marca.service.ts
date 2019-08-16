@@ -19,8 +19,8 @@ export class MarcaService {
     return this.http.post<IMarca>(this.resourceUrl, marca, { observe: 'response' });
   }
 
-  update(marca: IMarca): Observable<EntityResponseType> {
-    return this.http.put<IMarca>(this.resourceUrl, marca, { observe: 'response' });
+  update(id: number, marca: IMarca): Observable<EntityResponseType> {
+    return this.http.put<IMarca>(`${this.resourceUrl}/${id}`, marca, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {

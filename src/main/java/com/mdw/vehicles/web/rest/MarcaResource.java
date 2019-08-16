@@ -67,12 +67,13 @@ public class MarcaResource {
      * or with status {@code 500 (Internal Server Error)} if the marca couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/marcas")
-    public ResponseEntity<Marca> updateMarca(@Valid @RequestBody Marca marca) throws URISyntaxException {
+    @PutMapping("/marcas/{id}")
+    public ResponseEntity<Marca> updateMarca(@PathVariable Long id, @Valid @RequestBody Marca marca) throws URISyntaxException {
         log.debug("REST request to update Marca : {}", marca);
-        if (marca.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        marca.setId(id);
         Marca result = marcaService.save(marca);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, marca.getId().toString()))

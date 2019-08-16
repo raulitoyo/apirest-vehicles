@@ -46,7 +46,7 @@ export class MarcaUpdateComponent implements OnInit {
     this.isSaving = true;
     const marca = this.createFromForm();
     if (marca.id !== undefined) {
-      this.subscribeToSaveResponse(this.marcaService.update(marca));
+      this.subscribeToSaveResponse(this.marcaService.update(marca.id, marca));
     } else {
       this.subscribeToSaveResponse(this.marcaService.create(marca));
     }
