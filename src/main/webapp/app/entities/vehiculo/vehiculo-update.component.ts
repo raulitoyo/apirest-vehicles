@@ -145,7 +145,7 @@ export class VehiculoUpdateComponent implements OnInit {
     this.isSaving = true;
     const vehiculo = this.createFromForm();
     if (vehiculo.id !== undefined) {
-      this.subscribeToSaveResponse(this.vehiculoService.update(vehiculo));
+      this.subscribeToSaveResponse(this.vehiculoService.update(vehiculo.id, vehiculo));
     } else {
       this.subscribeToSaveResponse(this.vehiculoService.create(vehiculo));
     }

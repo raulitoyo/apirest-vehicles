@@ -19,8 +19,8 @@ export class VehiculoService {
     return this.http.post<IVehiculo>(this.resourceUrl, vehiculo, { observe: 'response' });
   }
 
-  update(vehiculo: IVehiculo): Observable<EntityResponseType> {
-    return this.http.put<IVehiculo>(this.resourceUrl, vehiculo, { observe: 'response' });
+  update(id: number, vehiculo: IVehiculo): Observable<EntityResponseType> {
+    return this.http.put<IVehiculo>(`${this.resourceUrl}/${id}`, vehiculo, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {

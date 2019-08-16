@@ -73,12 +73,13 @@ public class VehiculoResource {
      * or with status {@code 500 (Internal Server Error)} if the vehiculo couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/vehiculos")
-    public ResponseEntity<Vehiculo> updateVehiculo(@Valid @RequestBody Vehiculo vehiculo) throws URISyntaxException {
+    @PutMapping("/vehiculos/{id}")
+    public ResponseEntity<Vehiculo> updateVehiculo(@PathVariable Long id, @Valid @RequestBody Vehiculo vehiculo) throws URISyntaxException {
         log.debug("REST request to update Vehiculo : {}", vehiculo);
-        if (vehiculo.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        vehiculo.setId(id);
         Vehiculo result = vehiculoService.save(vehiculo);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, vehiculo.getId().toString()))
