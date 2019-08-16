@@ -46,7 +46,7 @@ export class TipoVehiculoUpdateComponent implements OnInit {
     this.isSaving = true;
     const tipoVehiculo = this.createFromForm();
     if (tipoVehiculo.id !== undefined) {
-      this.subscribeToSaveResponse(this.tipoVehiculoService.update(tipoVehiculo));
+      this.subscribeToSaveResponse(this.tipoVehiculoService.update(tipoVehiculo.id, tipoVehiculo));
     } else {
       this.subscribeToSaveResponse(this.tipoVehiculoService.create(tipoVehiculo));
     }

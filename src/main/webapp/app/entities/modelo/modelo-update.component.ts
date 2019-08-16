@@ -46,7 +46,7 @@ export class ModeloUpdateComponent implements OnInit {
     this.isSaving = true;
     const modelo = this.createFromForm();
     if (modelo.id !== undefined) {
-      this.subscribeToSaveResponse(this.modeloService.update(this.modelo.id, this.modelo));
+      this.subscribeToSaveResponse(this.modeloService.update(modelo.id, modelo));
     } else {
       this.subscribeToSaveResponse(this.modeloService.create(modelo));
     }
