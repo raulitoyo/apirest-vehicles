@@ -52,12 +52,13 @@ public class ConductorResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new conductor, or with status {@code 400 (Bad Request)} if the conductor has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/conductors")
-    public ResponseEntity<Conductor> createConductor(@Valid @RequestBody Conductor conductor) throws URISyntaxException {
+    @PostMapping("/conductors/{id}")
+    public ResponseEntity<Conductor> createConductor(@PathVariable Long id, @Valid @RequestBody Conductor conductor) throws URISyntaxException {
         log.debug("REST request to save Conductor : {}", conductor);
-        if (conductor.getId() != null) {
+        if (id != null) {
             throw new BadRequestAlertException("A new conductor cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        conductor.setId(id);
         Conductor result = conductorService.save(conductor);
         return ResponseEntity.created(new URI("/api/conductors/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

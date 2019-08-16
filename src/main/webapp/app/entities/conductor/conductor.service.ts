@@ -25,10 +25,10 @@ export class ConductorService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  update(conductor: IConductor): Observable<EntityResponseType> {
+  update(id: number, conductor: IConductor): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(conductor);
     return this.http
-      .put<IConductor>(this.resourceUrl, copy, { observe: 'response' })
+      .put<IConductor>(`${this.resourceUrl}/${id}`, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 

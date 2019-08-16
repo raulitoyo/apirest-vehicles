@@ -52,7 +52,7 @@ export class ConductorUpdateComponent implements OnInit {
     this.isSaving = true;
     const conductor = this.createFromForm();
     if (conductor.id !== undefined) {
-      this.subscribeToSaveResponse(this.conductorService.update(conductor));
+      this.subscribeToSaveResponse(this.conductorService.update(conductor.id, conductor));
     } else {
       this.subscribeToSaveResponse(this.conductorService.create(conductor));
     }
