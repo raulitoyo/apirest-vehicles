@@ -43,4 +43,12 @@ public interface ReservaService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Save a partial reserva.
+     *
+     * @param reserva the entity to save.
+     * @return the persisted entity.
+     */
+    Reserva savePartial(Reserva reserva);    
 }

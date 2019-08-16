@@ -43,4 +43,13 @@ public interface ConductorService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Save a partial conductor.
+     *
+     * @param conductor the entity to save.
+     * @return the persisted entity.
+     */
+    Conductor savePartial(Conductor conductor);
+
 }

@@ -40,4 +40,12 @@ public interface TipoVehiculoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Save a partial tipoVehiculo.
+     *
+     * @param tipoVehiculo the entity to save.
+     * @return the persisted entity.
+     */
+    TipoVehiculo savePartial(TipoVehiculo tipoVehiculo);
 }

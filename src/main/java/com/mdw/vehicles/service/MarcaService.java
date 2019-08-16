@@ -40,4 +40,12 @@ public interface MarcaService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Save a partial marca.
+     *
+     * @param marca the entity to save.
+     * @return the persisted entity.
+     */
+    Marca savePartial(Marca marca);    
 }

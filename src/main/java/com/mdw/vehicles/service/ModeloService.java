@@ -40,4 +40,12 @@ public interface ModeloService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Save a partial modelo.
+     *
+     * @param modelo the entity to save.
+     * @return the persisted entity.
+     */
+    Modelo savePartial(Modelo modelo);    
 }
